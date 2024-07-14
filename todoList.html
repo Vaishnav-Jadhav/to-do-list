@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <title>ToDo App</title>
+     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  </head>
+  <body class="container-fluid d-flex justify-content-center align-content-center bg-dark-subtle" style="font-family: Arial, Helvetica, sans-serif;">
+    <div class="w-50 m-4 border border-1 p-3 bg-dark text-light">
+        <h2 class="text-center text-light">ToDo Task</h2>
+        <div>
+            <label for="txtTask" class="form-label">Enter Task</label>
+            <div class="input-group">
+                <input type="text" name="txtTask" id="txtTask" placeholder="Enter Task" class="form-control">
+                <button class="btn btn-outline-info" onclick="addClick()">Add Task</button>
+            </div>
+        </div>
+        <div class="py-3" id="showTable">
+            <table class="table table-hover border rounded-3">
+                <thead>
+                     <tr>
+                        <th class="col-7">Task</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function addClick()
+        {
+           let task=document.getElementById("txtTask").value;
+
+           if(task=="")
+           {
+            alert("Please Add Some Task");
+           }
+           else
+           {
+               document.getElementById("txtTask").value="";
+               //console.log(task);
+               //document.getElementById("showTable").style.display="block";
+   
+               let tr=document.createElement("tr");
+               let tdTask=document.createElement("td");
+               tdTask.innerHTML=`${task}`;
+               tdTask.style.paddingLeft="10px";
+               let tdEdit=document.createElement("td");
+               tdEdit.innerHTML=`<button class="btn btn-outline-secondary" id="editClick"><span class="bi bi-pen"></span></button>`;
+               tdEdit.style.paddingLeft="5px";
+               let tdRemove=document.createElement("td");
+               tdRemove.innerHTML=`<button class="btn btn-outline-danger" id="rmvClick"><span class="bi bi-trash"></span></button>`;
+               tdRemove.style.paddingLeft="20px";
+               tr.appendChild(tdTask);
+               tr.appendChild(tdEdit);
+               tr.appendChild(tdRemove);
+   
+               document.querySelector("tbody").appendChild(tr);
+               alert(`Adding ${task} into ToDo list`);
+   
+               document.getElementById("rmvClick").addEventListener("click", remove);
+   
+               function remove()
+               {
+                    //confirm(`Wan't to Remove ${task} from todoList`);
+                    tr.remove();
+                    
+               }
+
+               document.getElementById("editClick").addEventListener("click" , edit);
+
+               function edit()
+               {
+                    document.getElementById("txtTask").value=task;
+                    tr.remove();
+               }
+            
+           }
+        }
+    </script>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+  </body>
+</html>
